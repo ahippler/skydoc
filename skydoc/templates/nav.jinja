@@ -20,13 +20,17 @@ limitations under the License.
 <li>
   <a href="{{ ruleset.output_file | doc_link }}">{{ ruleset.title }}</a>
   <ul>
-% if ruleset.description:
-    <li><a href="{{ ruleset.output_file | doc_link }}#overview">Overview</a></li>
-% endif
 % for rule in ruleset.rules:
     <li>
       <a href="{{ ruleset.output_file | doc_link }}#{{ rule.name }}">
         {{ rule.name }}
+      </a>
+    </li>
+% endfor
+% for macro in ruleset.macros:
+    <li>
+      <a href="{{ ruleset.output_file | doc_link }}#{{ macro.name }}">
+        {{ macro.name }}
       </a>
     </li>
 % endfor
