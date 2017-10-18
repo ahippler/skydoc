@@ -294,10 +294,7 @@ py_library(
 GFLAGS_BUILD_FILE = """
 py_library(
     name = "gflags",
-    srcs = [
-        "gflags.py",
-        "gflags_validators.py",
-    ],
+    srcs =  glob(["gflags/**/*.py"]),
     visibility = ["//visibility:public"],
 )
 """
@@ -321,10 +318,10 @@ def skydoc_repositories():
 
   native.new_http_archive(
       name = "markupsafe_archive",
-      url = "https://pypi.python.org/packages/source/M/MarkupSafe/MarkupSafe-0.23.tar.gz#md5=f5ab3deee4c37cd6a922fb81e730da6e",
-      sha256 = "a4ec1aff59b95a14b45eb2e23761a0179e98319da5a7eb76b56ea8cdc7b871c3",
+      url = "https://pypi.python.org/packages/4d/de/32d741db316d8fdb7680822dd37001ef7a448255de9699ab4bfcbdf4172b/MarkupSafe-1.0.tar.gz#md5=2fcedc9284d50e577b5192e8e3578355",
+      sha256 = "a6be69091dac236ea9c6bc7d012beab42010fa914c459791d627dad4910eb665",
       build_file_content = MARKUPSAFE_BUILD_FILE,
-      strip_prefix = "MarkupSafe-0.23",
+      strip_prefix = "MarkupSafe-1.0",
   )
 
   native.bind(
@@ -334,10 +331,10 @@ def skydoc_repositories():
 
   native.new_http_archive(
       name = "jinja2_archive",
-      url = "https://pypi.python.org/packages/source/J/Jinja2/Jinja2-2.8.tar.gz#md5=edb51693fe22c53cee5403775c71a99e",
-      sha256 = "bc1ff2ff88dbfacefde4ddde471d1417d3b304e8df103a7a9437d47269201bf4",
+      url = "https://pypi.python.org/packages/90/61/f820ff0076a2599dd39406dcb858ecb239438c02ce706c8e91131ab9c7f1/Jinja2-2.9.6.tar.gz#md5=6411537324b4dba0956aaa8109f3c77b",
+      sha256 = "ddaa01a212cd6d641401cb01b605f4a4d9f37bfc93043d7f760ec70fb99ff9ff",
       build_file_content = JINJA2_BUILD_FILE,
-      strip_prefix = "Jinja2-2.8",
+      strip_prefix = "Jinja2-2.9.6",
   )
 
   native.bind(
@@ -347,10 +344,10 @@ def skydoc_repositories():
 
   native.new_http_archive(
       name = "mistune_archive",
-      url = "https://pypi.python.org/packages/source/m/mistune/mistune-0.7.1.tar.gz#md5=057bc28bf629d6a1283d680a34ed9d0f",
-      sha256 = "6076dedf768348927d991f4371e5a799c6a0158b16091df08ee85ee231d929a7",
+      url = "https://pypi.python.org/packages/25/a4/12a584c0c59c9fed529f8b3c47ca8217c0cf8bcc5e1089d3256410cfbdbc/mistune-0.7.4.tar.gz#md5=92d01cb717e9e74429e9bde9d29ac43b",
+      sha256 = "8517af9f5cd1857bb83f9a23da75aa516d7538c32a2c5d5c56f3789a9e4cd22f",
       build_file_content = MISTUNE_BUILD_FILE,
-      strip_prefix = "mistune-0.7.1",
+      strip_prefix = "mistune-0.7.4",
   )
 
   native.bind(
@@ -360,10 +357,10 @@ def skydoc_repositories():
 
   native.new_http_archive(
       name = "six_archive",
-      url = "https://pypi.python.org/packages/source/s/six/six-1.10.0.tar.gz#md5=34eed507548117b2ab523ab14b2f8b55",
-      sha256 = "105f8d68616f8248e24bf0e9372ef04d3cc10104f1980f54d57b2ce73a5ad56a",
+      url = "https://pypi.python.org/packages/16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz#md5=d12789f9baf7e9fb2524c0c64f1773f8",
+      sha256 = "70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9",
       build_file_content = SIX_BUILD_FILE,
-      strip_prefix = "six-1.10.0",
+      strip_prefix = "six-1.11.0",
   )
 
   native.bind(
@@ -371,10 +368,11 @@ def skydoc_repositories():
       actual = "@six_archive//:six",
   )
 
-  native.new_git_repository(
+  native.new_http_archive(
       name = "gflags_repo",
-      remote = "https://github.com/google/python-gflags",
-      tag = "python-gflags-2.0",
+      url = "https://github.com/google/python-gflags/archive/3.1.1.tar.gz",
+      sha256 = "5ff27fa08c613706a9f488635bf38618c1587995ee3e9818b1562b19f4f498de",
+      strip_prefix = "python-gflags-3.1.1",
       build_file_content = GFLAGS_BUILD_FILE,
   )
 
