@@ -50,6 +50,7 @@ def _skylark_doc_impl(ctx):
   sources = [source.path for source in inputs]
   flags = [
       "--format=%s" % ctx.attr.format,
+      "--doc_title=%s" % ctx.attr.doc_title,
       "--output_file=%s" % ctx.outputs.skylark_doc_zip.path,
   ]
   if ctx.attr.strip_prefix:
@@ -161,6 +162,7 @@ Example:
 
 _skylark_doc_attrs = {
     "format": attr.string(default = "markdown"),
+    "doc_title": attr.string(default = "Bazel"),
     "strip_prefix": attr.string(),
     "overview": attr.bool(default = True),
     "overview_filename": attr.string(),

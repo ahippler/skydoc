@@ -38,6 +38,8 @@ gflags.DEFINE_string('output_file', '',
     'The output zip archive file to write if --zip=true.')
 gflags.DEFINE_string('format', 'markdown',
     'The output format. Possible values are markdown and html')
+gflags.DEFINE_string('doc_title', 'Bazel',
+   'The tile name of the documentations.')
 gflags.DEFINE_bool('zip', True,
     'Whether to generate a ZIP arhive containing the output files. If '
     '--zip is true, then skydoc will generate a zip file, skydoc.zip by '
@@ -125,13 +127,14 @@ def merge_languages(macro_language, rule_language):
 
 class WriterOptions(object):
   def __init__(self, output_dir, output_file, output_zip, overview,
-               overview_filename, link_ext, site_root):
+               overview_filename, link_ext, site_root, doc_title):
     self.output_dir = output_dir
     self.output_file = output_file
     self.output_zip = output_zip
     self.overview = overview
     self.overview_filename = overview_filename
     self.link_ext = link_ext
+    self.doc_title = doc_title
 
     self.site_root = site_root
     if len(self.site_root) > 0 and self.site_root.endswith('/'):
@@ -251,7 +254,7 @@ class HtmlWriter(object):
   def _write_ruleset(self, output_dir, ruleset, nav):
     # Load template and render markdown.
     template = self.__env.get_template('html.jinja')
-    out = template.render(title=ruleset.title, ruleset=ruleset, nav=nav)
+    out = template.render(doc_title=self.__options.doc_title, title=ruleset.title, ruleset=ruleset, nav=nav)
 
     # Write output to file. Output files are created in a directory structure
     # that matches that of the input file.
@@ -266,7 +269,7 @@ class HtmlWriter(object):
 
   def _write_overview(self, output_dir, rulesets, nav):
     template = self.__env.get_template('html_overview.jinja')
-    out = template.render(title='Overview', rulesets=rulesets, nav=nav)
+    out = template.render(doc_title=self.__options.doc_title, title='Overview', rulesets=rulesets, nav=nav)
 
     output_file = "%s/%s.html" % (output_dir, self.__options.overview_filename)
     with open(output_file, "w") as f:
@@ -314,7 +317,7 @@ def main(argv):
                      FLAGS.format))
   writer_options = WriterOptions(
       FLAGS.output_dir, FLAGS.output_file, FLAGS.zip, FLAGS.overview,
-      FLAGS.overview_filename, FLAGS.link_ext, FLAGS.site_root)
+      FLAGS.overview_filename, FLAGS.link_ext, FLAGS.site_root, FLAGS.doc_title)
   if FLAGS.format == "markdown":
     markdown_writer = MarkdownWriter(writer_options)
     markdown_writer.write(rulesets)
